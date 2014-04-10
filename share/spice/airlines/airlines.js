@@ -114,32 +114,29 @@
                 isDeparted: false
             };
 
-            console.log(departing);
+            console.log({"departing": departing,
+                "arriving": arriving
+            });
 
         // Display the plug-in.
         Spice.add({
             id: 'airlines',
             name: 'Airlines',
-
-            data: 
-
+            data: api_result, // just send everything for now
             meta: {
                 sourceName: 'FlightStatus',
                 source_url: "http://www.flightstats.com/go/FlightStatus/flightStatusByFlight.do?&airlineCode=" + flight.Airline.AirlineCode + "&flightNumber=" + flight.FlightNumber,
                 itemType: onTime() + ": Flight Status for " + flight.Airline.Name + " " + flight.FlightNumber
             },
-
              templates: {
                 item: Spice.airlines.airlines
             }
-
-        });
+        }); 
     };
 }(this));
 
  // Check when the plane will depart (or if it has departed).
     Handlebars.registerHelper("airline_status", function(airportOffset, isDeparture) {
-        console.log(this);
         var dateObject = arrivalDate;
         if(isDeparture) {
             dateObject = departureDate;
@@ -210,4 +207,16 @@
         minutes = minutes < 10 ? "0" + minutes : minutes;
 
         return date + ", " + hours + ":" + minutes + " " + suffix;
+    });
+
+    Handlebars.registerHelper("debug", function(optionalValue) { 
+        console.log("Current Context");
+        console.log("====================");
+        console.log(this);
+
+        if (optionalValue) {
+            console.log("Value"); 
+            console.log("===================="); 
+            console.log(optionalValue); 
+        } 
     });
