@@ -16,7 +16,7 @@
             return;
         }
 
-        console.log(api_result);
+       // console.log(api_result);
 
         var MILLIS_PER_MIN = 60000;
         var MILLIS_PER_HOUR = MILLIS_PER_MIN * 60;
@@ -116,16 +116,15 @@
                 isDeparted: false
             };
 
-            var return_data = {"flights": {
+            var return_data = {
                 "departing": departing,
                 "arriving": arriving
-                }
-            };
+                };
 
         // Display the plug-in.
         Spice.add({
             id: 'airlines',
-            name: 'Airlines',
+            name: 'Flights',
             data: return_data,
             meta: {
                 sourceName: 'FlightStatus',
@@ -133,7 +132,8 @@
                 itemType: onTime() + ": Flight Status for " + flight.Airline.Name + " " + flight.FlightNumber
             },
              templates: {
-                item: Spice.airlines.item
+                item: Spice.airlines.item,
+                detail: Spice.airlines.detail
             }
         }); 
     }
